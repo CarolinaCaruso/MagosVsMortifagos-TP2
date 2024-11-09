@@ -1,7 +1,9 @@
 package personaje;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Objects;
+import java.util.Random;
 
 import hechizo.Hechizo;
 
@@ -18,6 +20,10 @@ public abstract class Personaje {
 		this.nombre = nombre;
 		this.puntosDeVida = 100;
 		this.protegido = false;		
+	}
+	
+	public String getNombre() {
+		return nombre;
 	}
 	
 	public int lanzarHechizo (Hechizo hechizo, Personaje destino) {
@@ -43,11 +49,31 @@ public abstract class Personaje {
 		return true;		
 	}
 	
+	public Hechizo getHechizoAleatorioNoUsado(Collection<Hechizo> hechizosUsados) {
+		ArrayList<Hechizo> lista = new ArrayList<>(hechizos);
+		for(Hechizo usado : hechizosUsados) {
+			lista.remove(usado);
+		}
+		if(lista.isEmpty()) {
+			return null;
+		}
+		Hechizo[] vector = lista.toArray(new Hechizo[0]);
+		Random random = new Random();
+		return vector[random.nextInt(vector.length)];
+	}
+	
+	public boolean estaVivo() {
+		return puntosDeVida > 0;
+	}
+	
 	public boolean recibirDanio(int danio) {
 		
 		if(danio <= 0) {
 			return false;
 		}
+		if(!this.estaVivo()) {
+			return false;
+		}		
 		this.puntosDeVida -= danio;
 		return true;
 	}
@@ -58,6 +84,10 @@ public abstract class Personaje {
 		}
 		this.puntosDeVida += valor;
 		return true;
+	}
+	
+	public int getPuntosDeVida() {
+		return puntosDeVida;
 	}
 	
 	public boolean getProtegido() {
@@ -87,7 +117,7 @@ public abstract class Personaje {
 
 	@Override
 	public String toString() {
-		return "Personaje [nombre=" + nombre + "]";
+		return nombre;
 	}
 	
 }

@@ -29,4 +29,9 @@ public class Proteccion extends HechizoConcreto {
 	public String toString() {
 		return "Proteccion";
 	}
+
+	@Override
+	public boolean esDirigidoOponente() {
+		return false;
+	}
 }

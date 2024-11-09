@@ -11,6 +11,8 @@ public abstract class HechizoConcreto implements Hechizo {
 		return this.tipo;
 	}
 	
+	public abstract boolean esDirigidoOponente();
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(tipo);
