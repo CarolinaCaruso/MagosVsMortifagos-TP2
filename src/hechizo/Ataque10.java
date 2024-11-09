@@ -31,5 +31,10 @@ public class Ataque10 extends HechizoConcreto {
 	@Override
 	public String toString() {
 		return "Ataque10";
+	}
+
+	@Override
+	public boolean esDirigidoOponente() {
+		return true;
 	}	
 }

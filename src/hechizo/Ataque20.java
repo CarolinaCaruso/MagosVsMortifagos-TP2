@@ -32,5 +32,10 @@ private int danio;
 	public String toString() {
 		return "Ataque20";
 	}
+
+	@Override
+	public boolean esDirigidoOponente() {
+		return true;
+	}
 }
 

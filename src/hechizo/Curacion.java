@@ -7,7 +7,7 @@ public class Curacion extends HechizoConcreto {
 	private int valor;
 	
 	public Curacion() {
-		valor = 10;
+		valor = 1;
 	}
 	
 	@Override
@@ -30,5 +30,10 @@ public class Curacion extends HechizoConcreto {
 	@Override
 	public String toString() {
 		return "Curacion";
+	}
+
+	@Override
+	public boolean esDirigidoOponente() {
+		return false;
 	}
 }

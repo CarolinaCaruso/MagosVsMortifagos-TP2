@@ -19,17 +19,17 @@ public class BatallonIteratorSecuencial implements BatallonIterator {
 	
 	@Override
 	public boolean hasNext() {
-		return indiceActual < personajesSaludables.size();	
+		if(indiceActual >= personajesSaludables.size()) {
+			reset();
+			return false;
+		}
+		return true;	
 	}
 
 	@Override
 	public Personaje getNext() {
 		
 		if(!hasNext()) {
-			if(!personajesSaludables.isEmpty()) {	
-				mezclar();
-			}
-			indiceActual = 0;
 			return  null;
 		}
 		return personajesSaludables.get(indiceActual++);
@@ -38,6 +38,11 @@ public class BatallonIteratorSecuencial implements BatallonIterator {
 	public boolean eliminarPersonaje (Personaje personaje) {
 		return personajesSaludables.remove(personaje);
 
+	}
+	
+	public void reset() {
+		indiceActual = 0;
+		mezclar();
 	}
 	
 	private void mezclar() {
