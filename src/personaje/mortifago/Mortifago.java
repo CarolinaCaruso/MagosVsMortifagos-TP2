@@ -2,9 +2,9 @@ package personaje.mortifago;
 
 import personaje.Personaje;
 
-public class Mortifago extends Personaje {
+public abstract class Mortifago extends Personaje {
 
-	private TipoMortifago tipo;
+	protected TipoMortifago tipo;
 	
 	public Mortifago(String nombre, TipoMortifago tipo) {
         super(nombre);
