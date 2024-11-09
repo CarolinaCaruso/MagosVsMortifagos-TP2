@@ -10,20 +10,19 @@ public abstract class Personaje {
 	protected String nombre;
 	protected int nivelDeMagia;
 	protected int puntosDeVida;
+	protected boolean protegido;
 	protected ArrayList<Hechizo> hechizos = new ArrayList<> ();
 	
 	public Personaje(String nombre) {
 		
 		this.nombre = nombre;
 		this.puntosDeVida = 100;
-		
+		this.protegido = false;		
 	}
 	
 	public int lanzarHechizo (Hechizo hechizo, Personaje destino) {
 		
-		
 		return 0;
-		
 	}
 	
 	public boolean agregarHechizo(Hechizo hechizo) {
@@ -34,6 +33,18 @@ public abstract class Personaje {
 	public boolean recibirDanio(int danio) {
 		
 		return true;
+	}
+	
+	public boolean curar(int valor) {
+		return true;
+	}
+	
+	public boolean getProtegido() {
+		return protegido;
+	}
+	
+	public void setProtegido(boolean valor) {
+		this.protegido = valor;
 	}
 
 	@Override
@@ -57,10 +68,5 @@ public abstract class Personaje {
 	public String toString() {
 		return "Personaje [nombre=" + nombre + "]";
 	}
-	
-	
-	
-
-	
 	
 }
