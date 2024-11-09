@@ -22,20 +22,41 @@ public abstract class Personaje {
 	
 	public int lanzarHechizo (Hechizo hechizo, Personaje destino) {
 		
-		return 0;
+		if(hechizo == null) {
+			// Excepcion
+		}
+		if(destino == null) {
+			// Excepcion
+		}
+		return hechizo.ejecutar(this, destino);		
 	}
 	
 	public boolean agregarHechizo(Hechizo hechizo) {
 		
-		return true;
+		if(hechizo == null) {
+			// Excepcion
+		}
+		if(hechizos.contains(hechizo)) {
+			return false;
+		}
+		hechizos.add(hechizo);
+		return true;		
 	}
 	
 	public boolean recibirDanio(int danio) {
 		
+		if(danio <= 0) {
+			return false;
+		}
+		this.puntosDeVida -= danio;
 		return true;
 	}
 	
 	public boolean curar(int valor) {
+		if(valor <= 0) {
+			return false;
+		}
+		this.puntosDeVida += valor;
 		return true;
 	}
 	
