@@ -19,6 +19,10 @@ private int danio;
 		if(destino == null) {
 			// Excep
 		}
+		if(!origen.getArmado()) {
+			origen.setArmado(true);
+			return 0;
+		}
 		if(destino.getProtegido()) {
 			destino.setProtegido(false);
 			return 0;

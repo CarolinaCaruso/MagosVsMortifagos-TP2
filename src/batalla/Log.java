@@ -1,4 +1,4 @@
-package Batalla;
+package batalla;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +21,9 @@ public class Log {
 			//
 		}
 		if(atacante == destino) {
-			log.add(atacante + " usó " + hechizo + "\t\t" + atacante.getPuntosDeVida());
+			log.add(atacante + " -> " + hechizo + "\t\t\t" + atacante.getPuntosVida());
 		} else {
-			log.add(atacante + " -> " + hechizo + " -> " + destino + "\t\t" + atacante.getPuntosDeVida() + " / " + destino.getPuntosDeVida());
+			log.add(atacante + " -> " + hechizo + " -> " + destino + "\t\t" + atacante.getPuntosVida() + " / " + destino.getPuntosVida());
 		}
 		return true;
 	}

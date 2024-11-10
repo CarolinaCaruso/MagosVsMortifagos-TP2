@@ -18,6 +18,9 @@ public class HechizoFactory {
 
 		case TipoHechizo.Proteccion:
 			return new Proteccion();
+			
+		case TipoHechizo.Desarmar:
+			return new Desarmar();
 
 		default:
 			throw new IllegalArgumentException("Tipo de hechizo desconocido");

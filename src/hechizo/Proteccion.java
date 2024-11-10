@@ -19,6 +19,10 @@ public class Proteccion extends HechizoConcreto {
 		if(destino.getProtegido()) {
 			// ya esta protegido Excepcion??
 		}
+		if(!origen.getArmado()) {
+			origen.setArmado(true);
+			return 0;
+		}
 		
 		destino.setProtegido(true);
 		
