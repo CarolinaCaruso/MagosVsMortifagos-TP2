@@ -7,7 +7,7 @@ public class Ataque30 extends HechizoConcreto {
 private int danio;
 	
 	public Ataque30() {
-		danio = 10;
+		danio = 30;
 	}
 	
 	@Override
@@ -18,6 +18,10 @@ private int danio;
 		}
 		if(destino == null) {
 			// Excep
+		}
+		if(!origen.getArmado()) {
+			origen.setArmado(true);
+			return 0;
 		}
 		if(destino.getProtegido()) {
 			destino.setProtegido(false);

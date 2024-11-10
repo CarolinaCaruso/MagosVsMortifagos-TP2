@@ -7,7 +7,7 @@ public class Curacion extends HechizoConcreto {
 	private int valor;
 	
 	public Curacion() {
-		valor = 1;
+		valor = 10;
 	}
 	
 	@Override
@@ -18,6 +18,10 @@ public class Curacion extends HechizoConcreto {
 		}
 		if(destino == null) {
 			// Excep
+		}
+		if(!origen.getArmado()) {
+			origen.setArmado(true);
+			return 0;
 		}
 		
 		// Va a curar siempre!!!

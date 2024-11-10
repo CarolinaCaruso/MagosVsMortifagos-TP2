@@ -4,43 +4,61 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Random;
-
+import exception.PersonajeNuloException;
+import exception.PersonajeHechizoNoDisponibleException;
+import exception.PersonajeHechizoNuloException;
 import hechizo.Hechizo;
 
 public abstract class Personaje {
 
 	protected String nombre;
-	protected int nivelDeMagia;
-	protected int puntosDeVida;
+	protected int nivelMagia;
+	protected int puntosVida;
 	protected boolean protegido;
-	protected ArrayList<Hechizo> hechizos = new ArrayList<> ();
+	protected boolean armado;
+	protected ArrayList<Hechizo> hechizos = new ArrayList<>();
+	
+	public abstract boolean esMago();
+	public abstract boolean esMortifago();
 	
 	public Personaje(String nombre) {
-		
 		this.nombre = nombre;
-		this.puntosDeVida = 100;
-		this.protegido = false;		
+		this.nivelMagia = 10;
+		this.puntosVida = 100;
+		this.protegido = false;	
+		this.armado = true;	
 	}
 	
+	public Personaje(String nombre, int nivelMagia, int puntosVida, boolean armado, boolean protegido) {
+		this.nombre = nombre;
+		this.nivelMagia = nivelMagia;
+		this.puntosVida = puntosVida;
+		this.armado = armado;
+		this.protegido = protegido;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
 	
-	public int lanzarHechizo (Hechizo hechizo, Personaje destino) {
+	public int lanzarHechizo(Hechizo hechizo, Personaje destino) {
 		
 		if(hechizo == null) {
-			// Excepcion
+			throw new PersonajeHechizoNuloException("El hechizo para lanzar no puede ser null.");
 		}
 		if(destino == null) {
-			// Excepcion
+			throw new PersonajeNuloException("El destino para lanzar hechizo no puede ser null.");
 		}
-		return hechizo.ejecutar(this, destino);		
+		if(!hechizos.contains(hechizo)) {
+			throw new PersonajeHechizoNoDisponibleException("No se puede lanzar un hechizo que no se dispone.");
+		}
+		return hechizo.ejecutar(this, destino);
 	}
 	
 	public boolean agregarHechizo(Hechizo hechizo) {
 		
 		if(hechizo == null) {
-			// Excepcion
+			throw new PersonajeHechizoNuloException("El hechizo para agregar no puede ser null.");
 		}
 		if(hechizos.contains(hechizo)) {
 			return false;
@@ -63,7 +81,7 @@ public abstract class Personaje {
 	}
 	
 	public boolean estaVivo() {
-		return puntosDeVida > 0;
+		return puntosVida > 0;
 	}
 	
 	public boolean recibirDanio(int danio) {
@@ -74,7 +92,7 @@ public abstract class Personaje {
 		if(!this.estaVivo()) {
 			return false;
 		}		
-		this.puntosDeVida -= danio;
+		this.puntosVida -= danio;
 		return true;
 	}
 	
@@ -82,12 +100,15 @@ public abstract class Personaje {
 		if(valor <= 0) {
 			return false;
 		}
-		this.puntosDeVida += valor;
+		if(!this.estaVivo()) {
+			return false;
+		}		
+		this.puntosVida += valor;
 		return true;
 	}
 	
-	public int getPuntosDeVida() {
-		return puntosDeVida;
+	public int getPuntosVida() {
+		return puntosVida;
 	}
 	
 	public boolean getProtegido() {
@@ -96,6 +117,14 @@ public abstract class Personaje {
 	
 	public void setProtegido(boolean valor) {
 		this.protegido = valor;
+	}
+	
+	public boolean getArmado() {
+		return armado;
+	}
+	
+	public void setArmado(boolean valor) {
+		this.armado = valor;
 	}
 
 	@Override
@@ -117,7 +146,16 @@ public abstract class Personaje {
 
 	@Override
 	public String toString() {
-		return nombre;
+		
+		String str = nombre;		
+		
+		if(protegido) {
+			str += "(p)";
+		}
+		if(!armado) {
+			str += "(d)";
+		}
+		return str;
 	}
 	
 }

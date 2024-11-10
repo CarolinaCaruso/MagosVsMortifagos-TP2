@@ -3,6 +3,7 @@ package batallon;
 import java.util.ArrayList;
 import java.util.Random;
 
+import exception.BatallonAgregarPersonajeNoValidoException;
 import personaje.Personaje;
 
 
@@ -11,7 +12,7 @@ public class Batallon implements BatallonIterable {
 	private boolean tipo; //true Mago, false Mortifago
 	protected ArrayList<Personaje> personajes = new ArrayList<> ();
 	
-	public ArrayList  <Personaje> getPersonajes(){
+	public ArrayList<Personaje> getPersonajes(){
 		return new ArrayList<Personaje> (personajes);
 	}
 	
@@ -29,8 +30,16 @@ public class Batallon implements BatallonIterable {
 	
 	public boolean agregarPersonaje(Personaje personaje) {
 		
-		// Falta validar que no se pueda mezclar magos y mortifagos en un batallon
+		if(personaje.esMortifago() && tipo) { // tipo==true es batallon de magos
+			throw new BatallonAgregarPersonajeNoValidoException("El batallon es tipo Mortifagos, no se puede agregar un Mago");
+		}
 		
+		if(personaje.esMago() && !tipo) {	// tipo==false es batallon de mortifagos
+			throw new BatallonAgregarPersonajeNoValidoException("El batallon es tipo Mago, no se puede agregar un Mortifago");
+		}	
+		if(this.contienePersonaje(personaje)) {
+			return false;
+		}
 		return personajes.add(personaje);
 	}
 	
@@ -57,11 +66,6 @@ public class Batallon implements BatallonIterable {
 
 		return new BatallonIteratorSecuencial(personajes);
 	}
-
-	public void atacar(Batallon oponente) {
-		
-		
-	}
 	
 	private Personaje[] getPersonajesVivos() {
 		ArrayList<Personaje> listaPersonajesVivos = new ArrayList<>();
@@ -75,6 +79,15 @@ public class Batallon implements BatallonIterable {
 		}
 		Personaje[] vectorPersonajesVivos = listaPersonajesVivos.toArray(new Personaje[0]);
 		return vectorPersonajesVivos;
+	}
+	
+	public boolean contienePersonaje(Personaje personaje) {
+		for(Personaje enLista : personajes) {
+			if(enLista.getNombre().equals(personaje.getNombre())) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }
